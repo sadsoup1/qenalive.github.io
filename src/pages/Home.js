@@ -1,6 +1,8 @@
 import {  useLocation, useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import supabase from "../supabase"
+import Sidebar from "./components/Sidebar"
+import { Flex } from "@chakra-ui/react"
 
 export default function Home(){
 
@@ -20,8 +22,8 @@ export default function Home(){
     }, [state, navigate])
     
     return(
-        <>
-            <h1>Home</h1>
-        </>
+        <Flex>
+            <Sidebar />
+        </Flex>
     )
 }

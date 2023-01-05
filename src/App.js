@@ -11,6 +11,7 @@ import RequireAuth from './pages/components/RequireAuth';
 function App() {
   return (
     <>
+      {/* Side Nav stacked ontop of everything but hidden without Auth */}
       <SideNav />
     
       <Routes>
@@ -18,31 +19,13 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Login />} />
 
-        {/* After User Sign In */}
-        <Route 
-          path="/" 
-          element={
-            <RequireAuth>
-              <Home />
-            </RequireAuth>
-          }
-        />
-        <Route 
-          path='/classes' 
-          element={
-            <RequireAuth>
-              <Classes />
-            </RequireAuth>
-          }
-        />
-        <Route 
-          path='/settings' 
-          element={
-            <RequireAuth>
-              <Settings />
-            </RequireAuth>
-          }
-        />
+        {/* 
+          After User Sign In 
+          Wrapped in Auth component to restrict to user login
+        */}
+        <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
+        <Route path='/classes' element={<RequireAuth> <Classes /> </RequireAuth>} />
+        <Route path='/settings' element={<RequireAuth> <Settings /> </RequireAuth>}/>
         
         {/* Other */}
         <Route path='*' element={<Lost />} />

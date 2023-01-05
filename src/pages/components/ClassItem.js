@@ -2,6 +2,7 @@ import React from 'react'
 import { Icon, ListItem } from '@chakra-ui/react'
 import { VscCircleOutline } from 'react-icons/vsc'
 
+// List item components exported to be in a list of current classes in the sidebar
 export default function ClassItem({name, open}) {
     return (
         <ListItem 

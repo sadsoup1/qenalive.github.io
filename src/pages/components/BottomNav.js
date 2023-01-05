@@ -1,5 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 
+// TODO
 export default function BottomNav() {
     return (
         <Flex display={{base: 'initial', sm: 'none'}}>

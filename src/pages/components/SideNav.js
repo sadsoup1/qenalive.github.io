@@ -6,12 +6,14 @@ import supabase from "../../supabase";
 import { useNavigate } from "react-router-dom"
 import { IsAuthed } from "./RequireAuth";
 
+// Current Classes - Implemented later
 const classItems = [
-    { name: 'Class 123456' },
-    { name: 'Class 22' },
-    { name: 'Class 323444' }
+    // { name: 'Class 123456' },
+    // { name: 'Class 22' },
+    // { name: 'Class 323444' }
 ]
 
+// Navigation to different site pages
 const NavItems = [
     { name: 'Home', icon: VscHome, to: '/'},
     { name: 'Classes', icon: VscNotebook, to: '/classes', classes: classItems},
@@ -29,12 +31,12 @@ export default function SideNav() {
         navigate('/login');
     };
 
+    // Collapse sidenav when button is toggled or is less than widescreen
     const { isOpen, onToggle } = useDisclosure();   
     const isWide = useBreakpointValue({sm: false, lg: true })
-
-    // Collapse sidenav when button is toggled or is less than widescreen
     const open = !isOpen && isWide; 
 
+    // Hide Side nav if user doesn't have auth
     if (!IsAuthed()) {
         return;
     }
@@ -106,11 +108,12 @@ export default function SideNav() {
                     >
                         <Flex align="center" >
                             {/* 
+                                Functionality TODO
                                 Avatar becomes the initials of user. 
-                                We don't need custom avatars 
+                                We don't need custom avatars but can support them
                                 Username will be from session info
                             */}
-                            <Avatar name='User Name' size="sm" src='https://brokenlink.sdf' /> 
+                            <Avatar name='User Name' size="sm" /> 
                             <Flex 
                                 flexDir="column" 
                                 ml={4} 
@@ -123,6 +126,10 @@ export default function SideNav() {
                         </Flex>
                     </MenuButton>
                     <MenuList>
+                        {/* 
+                            Functionality TODO 
+                            Profile should bring up normal profile stuff to edit
+                        */}
                         <MenuItem>Profile</MenuItem>
                         <MenuItem onClick={() => onSignOut()}>Sign out</MenuItem>
                     </MenuList>

@@ -4,6 +4,7 @@ import ClassItem from './ClassItem'
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react'
 
+// Component for each nav bar icon thing
 export default function NavItem({name, icon, open, to, classes}) {
     const navigate = useNavigate()
     const [session, setSession] = useState()

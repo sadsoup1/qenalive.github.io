@@ -78,7 +78,7 @@ export default function SignUpTab(){
                 placeholder='password' 
                 type='password' />
             </FormControl>
-            <Button onClick={SignIn} bg='gray.300'>Sign In</Button>
+            <Button onClick={() => SignIn()} bg='gray.300'>Sign In</Button>
         </VStack>
     )
 }

@@ -1,8 +1,13 @@
 import React from 'react'
 import { Flex, Icon, List, Text } from '@chakra-ui/react'
 import ClassItem from './ClassItem'
+import { useNavigate } from "react-router-dom"
+import { useState } from 'react'
 
-export default function NavItem({name, icon, open, classes}) {
+export default function NavItem({name, icon, open, to, classes}) {
+    const navigate = useNavigate()
+    const [session, setSession] = useState()
+
     return (
         <Flex flexDir='column' w='100%' >
             <Flex
@@ -13,6 +18,7 @@ export default function NavItem({name, icon, open, classes}) {
                 cursor="pointer"
                 color='teal.500'
                 fontWeight='semibold'
+                onClick={() => {navigate(to, { state: { session }})}}
                 _focus={{
                     bg: 'blue.100',
                     color: 'white',

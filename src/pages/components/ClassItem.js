@@ -7,7 +7,7 @@ export default function ClassItem({name, open}) {
         <ListItem 
             fontSize='sm'
             as='button'
-            //pr='50px'
+            p='1'
             cursor="pointer"
             color='teal.500'
             fontWeight='semibold'

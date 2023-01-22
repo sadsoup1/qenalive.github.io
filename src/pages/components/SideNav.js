@@ -115,7 +115,7 @@ export default function SideNav() {
                                 We don't need custom avatars but can support them
                                 Username will be from session info
                             */}
-                            <Avatar name='User Name' size="sm" ml='-2' /> 
+                            <Avatar name='User Name' size={open ? 'sm' : 'xs'} ml='-2' /> 
                             <Flex 
                                 flexDir="column" 
                                 ml={4} 

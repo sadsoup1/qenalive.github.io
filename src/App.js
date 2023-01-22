@@ -7,6 +7,7 @@ import Settings from './pages/Settings'
 import Classes from './pages/Classes';
 import SideNav from './pages/components/SideNav';
 import RequireAuth from './pages/components/RequireAuth';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         {/* Before User Sign In */}
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Login />} />
+        <Route path='/aboutus' element={<AboutUs />} />
+
 
         {/* 
           After User Sign In 

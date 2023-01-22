@@ -6,6 +6,7 @@ import Lost from './pages/Lost'
 import Settings from './pages/Settings'
 import Classes from './pages/Classes';
 import SideNav from './pages/components/SideNav';
+import BottomNav from './pages/components/BottomNav'
 import RequireAuth from './pages/components/RequireAuth';
 import { Flex } from '@chakra-ui/react';
 
@@ -15,6 +16,7 @@ function App() {
       <Flex>
         {/* Side Nav stacked ontop of everything but hidden without Auth */}
         <SideNav />
+        <BottomNav />
       
         <Routes>
           {/* Before User Sign In */}

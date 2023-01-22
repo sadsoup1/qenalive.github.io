@@ -17,28 +17,27 @@ export default function NavItem({name, icon, open, to, classes}) {
                 mt='20px'
                 w='100%'
                 cursor="pointer"
-                color='teal.500'
                 fontWeight='semibold'
                 onClick={() => {navigate(to, { state: { session }})}}
                 _focus={{
-                    bg: 'blue.100',
+                    bg: 'blackAlpha.300',
                     color: 'white',
                     borderRadius: 'xl'
                 }}
                 _hover={{
-                    bg: 'blue.100',
+                    bg: 'blackAlpha.500',
                     color: 'white',
                     borderRadius: 'xl'
                 }}
                 _active={{
-                    bg: 'blue.200',
+                    bg: 'blackAlpha.300',
                     color: 'white',
                     borderRadius: 'xl'
                 }}
                 sx={{ 'WebkitTapHighlightColor': 'transparent'}}
             >
                 <Icon ml='1' as={icon} fontSize="2xl" />
-                <Text ml={open ? '20px' : '0px'} display={open ? "flex" : "none"}> {name} </Text>
+                <Text  ml={open ? '20px' : '0px'} display={open ? "flex" : "none"}> {name} </Text>
             </Flex>
             <List 
                 spacing={3}

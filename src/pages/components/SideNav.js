@@ -44,12 +44,13 @@ export default function SideNav() {
     return (
         <Flex
             pos="sticky"
-            boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+            //boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+            boxShadow='md'
             w={open ? "200px" : "72px"}
             flexDir="column"
             justifyContent="space-between"
             display={{base: 'none', sm: 'flex'}}
-            bg='blackAlpha.200'
+            bg='gray.50'
         >
             {/* Upper/Middle Portion */}
             <Flex
@@ -93,13 +94,19 @@ export default function SideNav() {
                 alignItems={open ? "flex-start" : "center"}
                 mb={4}
             >
-                <Divider mb={4} orientation='horizontal' display={open ? "flex" : "none"} />
+                <Divider 
+                    mb={4}
+                    orientation='horizontal'
+                    display={open ? "flex" : "none"}
+                />
+
                 {/* User Info Menu*/}
                 <Menu>
                     <MenuButton 
                         as={Button} 
                         rightIcon={<VscChevronDown />} 
                         bg='transparent'
+                        w='100%'
                     >
                         <Flex align="center" >
                             {/* 
@@ -108,13 +115,13 @@ export default function SideNav() {
                                 We don't need custom avatars but can support them
                                 Username will be from session info
                             */}
-                            <Avatar name='User Name' size="sm" /> 
+                            <Avatar name='User Name' size="sm" ml='-2' /> 
                             <Flex 
                                 flexDir="column" 
                                 ml={4} 
                                 display={open ? "flex" : "none"}
                             > 
-                                <Heading as="h3" size="sm"> {/* Long names need fixing */}
+                                <Heading as='h3' fontWeight='semibold' size="sm"> {/* Long names need fixing */}
                                     User Name
                                 </Heading> 
                             </Flex>

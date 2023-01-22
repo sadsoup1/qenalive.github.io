@@ -3,7 +3,7 @@ import { IoIosSearch } from 'react-icons/io'
 
 export default function Home() {
     return (
-        <Box w='100vw' h='100vh' bg='gray.100'>
+        <Box w='100vw' h='100vh' bg='gray.100' overflow={'scroll'}>
             <SimpleGrid 
                 columns={1} 
                 rows={2} 
@@ -39,7 +39,7 @@ export default function Home() {
                 <Center>
                     <Box 
                         bg='gray.50' 
-                        h='80vh'
+                        h='85vh'
                         w='90%'
                         borderRadius='2xl'
                         boxShadow='base'

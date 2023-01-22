@@ -44,11 +44,7 @@ export default function SideNav() {
     return (
         <Flex
             pos="sticky"
-            left="5"
-            h="95vh"
-            mt="2.5vh"
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-            borderRadius={open ? "30px" : "15px"}
             w={open ? "200px" : "72px"}
             flexDir="column"
             justifyContent="space-between"
@@ -92,7 +88,6 @@ export default function SideNav() {
             </Flex>
             {/* Lower Portion */}
             <Flex
-                p="5%"
                 flexDir="column"
                 w="100%"
                 alignItems={open ? "flex-start" : "center"}

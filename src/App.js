@@ -9,19 +9,22 @@ import SideNav from './pages/components/SideNav';
 import BottomNav from './pages/components/BottomNav'
 import RequireAuth from './pages/components/RequireAuth';
 import { Flex } from '@chakra-ui/react';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
     <>
       <Flex>
-        {/* Side Nav stacked ontop of everything but hidden without Auth */}
-        <SideNav />
-        <BottomNav />
-      
-        <Routes>
-          {/* Before User Sign In */}
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Login />} />
+      {/* Side Nav stacked ontop of everything but hidden without Auth */}
+      <SideNav />
+      <BottomNav />
+    
+      <Routes>
+        {/* Before User Sign In */}
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Login />} />
+        <Route path='/aboutus' element={<AboutUs />} />
+
 
           {/* 
             After User Sign In 

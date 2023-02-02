@@ -52,7 +52,7 @@ export default function PostWithLike() {
           PNB 3251: Bio of the Brain
         </Heading>
         <Text color={"gray.500"} noOfLines={2}>
-          We will be learning about the brain and how it works.
+          We will be learning about the brain and how it works. Cool!
         </Text>
       </Box>
       <HStack borderTop={"1px"} color="black">

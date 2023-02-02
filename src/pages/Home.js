@@ -29,7 +29,7 @@ export default function Home() {
                 spacingY={5}
                 mt='5'
             >
-                <Center>
+		<Center>
                     <Flex 
                         bg='gray.50' 
                         minH='8vh'
@@ -37,27 +37,25 @@ export default function Home() {
                         borderRadius='2xl'
                         boxShadow='base'
                     >
-                        <Flex w='75%'>
+                        <Flex w='100%'>
                             <InputGroup m={4}>
                                 <InputLeftElement
                                     pointerEvents='none'
                                     children={<IoIosSearch color='gray' />}
                                 />
-                                <Input bg='gray.100' type='search' placeholder='Find a room to join' />
+                                <Input bg='gray.100' type='search' w = "75%" placeholder='Find a room to join' />
                             </InputGroup>
                         </Flex>
-                        <Flex>
+                        <Flex >
                             <Button border='1px' borderColor='gray.200' m={4} ml='14' onClick={onOpen} >
                                 Create a Room
-                            </Button>
-
-                            
+                            </Button> 
                         </Flex>
                         
                     </Flex>
-                </Center>
-                <Center>
-                    <Box 
+		</Center>
+		<Center>
+                    <Box
                         bg='gray.50' 
                         h='85vh'
                         w='90%'
@@ -65,7 +63,7 @@ export default function Home() {
                         boxShadow='base'
                     >
                     </Box>
-                </Center>
+		</Center>
             </SimpleGrid>
             
             <Modal isOpen={isOpen} onClose={onClose} isCentered>

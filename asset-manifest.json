@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/clickerconn/static/js/main.529a6728.js",
-    "index.html": "/clickerconn/index.html",
-    "main.529a6728.js.map": "/clickerconn/static/js/main.529a6728.js.map"
+    "main.js": "/static/js/main.529a6728.js",
+    "index.html": "/index.html",
+    "main.529a6728.js.map": "/static/js/main.529a6728.js.map"
   },
   "entrypoints": [
     "static/js/main.529a6728.js"

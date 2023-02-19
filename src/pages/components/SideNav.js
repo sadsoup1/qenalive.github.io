@@ -1,5 +1,5 @@
 import { Avatar, Button, Divider, Flex, Heading, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, useBreakpointValue } from "@chakra-ui/react";
-import { VscMenu, VscHome, VscNotebook, VscSettingsGear, VscChevronDown } from 'react-icons/vsc'
+import { VscMenu, VscHome, VscNotebook, VscSettingsGear, VscChevronDown, VscBeaker } from 'react-icons/vsc'
 import { useDisclosure } from "@chakra-ui/react"
 import NavItem from './NavItem'
 import supabase from "../../supabase";
@@ -18,6 +18,7 @@ const NavItems = [
     { name: 'Home', icon: VscHome, to: '/'},
     { name: 'Classes', icon: VscNotebook, to: '/classes', classes: classItems},
     { name: 'Settings', icon: VscSettingsGear, to: '/settings' },
+    { name: 'Test Questions', icon: VscBeaker, to: '/testQuestions'}
 ]
 
 export default function SideNav() {

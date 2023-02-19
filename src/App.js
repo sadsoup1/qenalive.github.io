@@ -10,6 +10,7 @@ import BottomNav from './pages/components/BottomNav'
 import RequireAuth from './pages/components/RequireAuth';
 import { Flex } from '@chakra-ui/react';
 import AboutUs from './pages/AboutUs';
+import TestQuestions from './pages/TestQuestions';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
           <Route path='/classes' element={<RequireAuth> <Classes /> </RequireAuth>} />
           <Route path='/settings' element={<RequireAuth> <Settings /> </RequireAuth>}/>
+          <Route path='/testQuestions' element={<RequireAuth> <TestQuestions /> </RequireAuth>} />
           
           {/* Other */}
           <Route path='*' element={<Lost />} />

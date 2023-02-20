@@ -1,4 +1,5 @@
 import { Box, Heading, SimpleGrid, Center } from "@chakra-ui/react";
+import AddQuestion from './components/AddQuestion';
 
 export default function TestQuestions() {
     return (
@@ -13,6 +14,7 @@ export default function TestQuestions() {
             p="3"
           >
             <Heading p="6">Test Questions</Heading>
+            <AddQuestion/>
           </Box>
         </Center>
       </SimpleGrid>

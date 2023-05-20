@@ -16,15 +16,15 @@ function App() {
   return (
     <>
       <Flex>
-      {/* Side Nav stacked ontop of everything but hidden without Auth */}
-      <SideNav />
-      <BottomNav />
-    
-      <Routes>
-        {/* Before User Sign In */}
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Login />} />
-        <Route path='/aboutus' element={<AboutUs />} />
+        {/* Side Nav stacked ontop of everything but hidden without Auth */}
+        <SideNav />
+        <BottomNav />
+
+        <Routes>
+          {/* Before User Sign In */}
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Login />} />
+          <Route path='/aboutus' element={<AboutUs />} />
 
 
           {/* 
@@ -33,9 +33,9 @@ function App() {
           */}
           <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
           <Route path='/classes' element={<RequireAuth> <Classes /> </RequireAuth>} />
-          <Route path='/settings' element={<RequireAuth> <Settings /> </RequireAuth>}/>
+          <Route path='/settings' element={<RequireAuth> <Settings /> </RequireAuth>} />
           <Route path='/testQuestions' element={<RequireAuth> <TestQuestions /> </RequireAuth>} />
-          
+
           {/* Other */}
           <Route path='*' element={<Lost />} />
         </Routes>

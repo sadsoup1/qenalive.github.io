@@ -3,9 +3,6 @@ import LoginTab from "./components/LoginTab";
 import SignUpTab from './components/SignUpTab'
 
 export default function Home(){
-
-
-
     return(
         <Center
         h='100vh'

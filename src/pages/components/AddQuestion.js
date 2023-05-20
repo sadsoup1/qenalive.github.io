@@ -1,4 +1,4 @@
-import { Button, HStack, Input, useToast } from '@chakra-ui/react';
+import { Button, HStack, Input, useToast, useColorMode } from '@chakra-ui/react';
 import { useState } from 'react';
 import supabase from '../../supabase';
 
@@ -6,7 +6,8 @@ export default function AddQuestion() {
     const [courseID, setCourse] = useState('');
     const [questionBody, setQuestion] = useState('');
     const [loading, setLoading] = useState(false);
-    const toast = useToast()
+    const toast = useToast();
+    const { colorMode } = useColorMode();
 
     async function handleAdd(e) {
         e.preventDefault();
@@ -42,13 +43,15 @@ export default function AddQuestion() {
     return (
         <form onSubmit={handleAdd}>
             <HStack my="4" h="45">
-            <Input 
+                <Input 
                     h="100%"
                     variant="filled" 
                     placeholder="CourseName-123" 
                     disabled={loading}
                     value={courseID}
                     onChange={e => setCourse(e.target.value)}
+                    bg={colorMode === 'light' ? 'white' : 'gray.700'}
+                    color={colorMode === 'light' ? 'gray.800' : 'white'}
                 />
                 <Input 
                     h="100%"
@@ -57,6 +60,8 @@ export default function AddQuestion() {
                     disabled={loading}
                     value={questionBody}
                     onChange={e => setQuestion(e.target.value)}
+                    bg={colorMode === 'light' ? 'white' : 'gray.700'}
+                    color={colorMode === 'light' ? 'gray.800' : 'white'}
                 />
                 
                 <Button 
@@ -66,6 +71,9 @@ export default function AddQuestion() {
                     type="submit"
                     isLoading={loading}
                     loadingText="Adding"
+                    bg={colorMode === 'light' ? 'blue.500' : 'blue.300'}
+                    _hover={{ bg: colorMode === 'light' ? 'blue.600' : 'blue.400' }}
+                    color={colorMode === 'light' ? 'white' : 'gray.800'}
                 >
                     Add
                 </Button>

@@ -63,7 +63,7 @@ export default function SideNav() {
                 as="nav"
             >
                 {/* Logos for expanded and compact sidebar */}
-                <Image mt={4} src='/qena192.png' display={open ? "flex" : "none"} />
+                <Image mt={4} src='/qena192 text.png' display={open ? "flex" : "none"} />
                 <Image mt={4} src='/qena64.png' display={open ? "none" : "flex"} />
                 {/* Hamburger button */}
                 <IconButton

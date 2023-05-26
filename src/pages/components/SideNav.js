@@ -1,5 +1,5 @@
 import { Avatar, Button, Divider, Flex, Heading, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Switch, useBreakpointValue, useColorMode } from "@chakra-ui/react";
-import { VscMenu, VscHome, VscNotebook, VscSettingsGear, VscChevronDown, VscBeaker } from 'react-icons/vsc'
+import { VscMenu, VscHome, VscNotebook, VscChevronDown, VscBeaker } from 'react-icons/vsc'
 import { useDisclosure } from "@chakra-ui/react"
 import NavItem from './NavItem'
 import supabase from "../../supabase";

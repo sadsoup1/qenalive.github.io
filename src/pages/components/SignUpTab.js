@@ -1,17 +1,19 @@
-import { 
+import {
     Button,
-    FormControl, 
+    FormControl,
     FormErrorMessage,
     FormHelperText,
-    FormLabel,  
-    Input,  
-    useToast,  
-    VStack } from '@chakra-ui/react'
+    FormLabel,
+    Input,
+    useToast,
+    VStack,
+    useColorMode
+} from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import supabase from '../../supabase'
 
-export default function LoginTab(){
+export default function LoginTab() {
     //For Supabase
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -26,13 +28,13 @@ export default function LoginTab(){
     const toast = useToast()
     const [isEmailError, setIsEmailError] = useState(false)
     const [isPasswordError, setIsPasswordError] = useState(false)
-    const [isRepeatPasswordError,setIsRepeatPasswordError] = useState(false)
+    const [isRepeatPasswordError, setIsRepeatPasswordError] = useState(false)
 
-    const SignIn = async function(){
+    const SignIn = async function () {
 
         toast.closeAll() //Closes all previous opened toasts (makes spam clicking submit be less annoying)
 
-        if (email === "" || password === ""){ //Can limit what is/isn't acceptable for a password (use methods for comparisons for more complicated checks)
+        if (email === "" || password === "") { //Can limit what is/isn't acceptable for a password (use methods for comparisons for more complicated checks)
             toast({
                 title: "Seems that you forgot to enter your email or password!",
                 position: 'bottom',
@@ -43,7 +45,7 @@ export default function LoginTab(){
             return
         }
 
-        if (password !== repeatPassword){
+        if (password !== repeatPassword) {
             toast({
                 title: "Please make sure both passwords entered are the same",
                 position: 'bottom',
@@ -54,12 +56,12 @@ export default function LoginTab(){
             return
         }
 
-        try{
+        try {
             const { data } = await supabase.auth.signUp({
                 email, password
             })
-            if (data) { navigate('/', { state: {session: data.session }}) }
-        }catch(err){
+            if (data) { navigate('/', { state: { session: data.session } }) }
+        } catch (err) {
             toast({
                 title: err,
                 position: 'bottom',
@@ -71,75 +73,77 @@ export default function LoginTab(){
         }
     }
 
-    useEffect(()=>{ //using this to highlight missing data fields
+    useEffect(() => { //using this to highlight missing data fields
         console.log(password.length)
-        if (!email.includes('.') || !email.includes('@')){ //@ and '.' symbols
+        if (!email.includes('.') || !email.includes('@')) { //@ and '.' symbols
             setIsEmailError(true)
-        } else if (email.includes('@') && email.includes('.')){
+        } else if (email.includes('@') && email.includes('.')) {
             setIsEmailError(false)
-            if(password.length < 8){ //8 char password
+            if (password.length < 8) { //8 char password
                 setIsPasswordError(true)
                 setIsRepeatPasswordError(false)
-            } else if(password.length >= 8){
+            } else if (password.length >= 8) {
                 setIsPasswordError(false)
-                if(repeatPassword !== password){ //matching passwords
+                if (repeatPassword !== password) { //matching passwords
                     setIsRepeatPasswordError(true)
-                } else if(repeatPassword === password){
+                } else if (repeatPassword === password) {
                     setIsRepeatPasswordError(false)
                 }
-            } 
+            }
         }
-        
+
     }, [email, password, repeatPassword])
 
-    return(
+    const { colorMode } = useColorMode()
+
+    return (
         <VStack as='form'>
             <FormControl isRequired isInvalid={isEmailError}>
                 <FormLabel>Email</FormLabel>
-                <Input 
-                value={email}
-                onChange={(e)=>{setEmail(e.target.value)}}
-                placeholder='rsmith@gmail.com' 
-                type='email' />
+                <Input
+                    value={email}
+                    bg={colorMode === 'light' ? 'gray.100' : 'gray.800'}
+                    onChange={(e) => { setEmail(e.target.value) }}
+                    placeholder='rsmith@gmail.com'
+                    type='email' />
                 {!isEmailError ? (
                     <FormHelperText>
-                    asdf
                     </FormHelperText>
-                    ) : (
+                ) : (
                     <FormErrorMessage>Email is required.</FormErrorMessage>
                 )}
             </FormControl>
             <FormControl isRequired isInvalid={isPasswordError}>
                 <FormLabel>Password</FormLabel>
-                <Input 
-                value={password}
-                onChange={(e)=>{setPassword(e.target.value)}}
-                placeholder='password' 
-                type='password' />
+                <Input
+                    value={password}
+                    bg={colorMode === 'light' ? 'gray.100' : 'gray.800'}
+                    onChange={(e) => { setPassword(e.target.value) }}
+                    placeholder='password'
+                    type='password' />
                 {!isPasswordError ? (
                     <FormHelperText>
-                    asfd
                     </FormHelperText>
-                    ) : (
+                ) : (
                     <FormErrorMessage>Password is required.</FormErrorMessage>
                 )}
             </FormControl>
             <FormControl isRequired isInvalid={isRepeatPasswordError}>
                 <FormLabel>Re-enter Password</FormLabel>
-                <Input 
-                value={repeatPassword}
-                onChange={(e)=>{setRepeatPassowrd(e.target.value)}}
-                placeholder='re-enter password' 
-                type='password' />
+                <Input
+                    value={repeatPassword}
+                    bg={colorMode === 'light' ? 'gray.100' : 'gray.800'}
+                    onChange={(e) => { setRepeatPassowrd(e.target.value) }}
+                    placeholder='re-enter password'
+                    type='password' />
                 {!isRepeatPasswordError ? (
                     <FormHelperText>
-                    asdf
                     </FormHelperText>
-                    ) : (
+                ) : (
                     <FormErrorMessage>Passwords don't match.</FormErrorMessage>
                 )}
             </FormControl>
-            <Button onClick={SignIn} bg='gray.300'>Sign Up</Button>
+            <Button onClick={SignIn} bg={colorMode === 'light' ? 'gray.400' : 'gray.600'} color={colorMode === 'light' ? 'gray.800' : 'white'}>Sign Up</Button>
         </VStack>
     )
 }

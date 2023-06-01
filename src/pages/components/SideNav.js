@@ -1,16 +1,19 @@
 import { Avatar, Button, Divider, Flex, Heading, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Switch, useBreakpointValue, useColorMode } from "@chakra-ui/react";
-import { VscMenu, VscHome, VscNotebook, VscChevronDown, VscBeaker } from 'react-icons/vsc'
+import { VscMenu, VscHome, VscNotebook, VscSettingsGear, VscChevronDown, VscBeaker, VscAdd, VscSearch } from 'react-icons/vsc'
 import { useDisclosure } from "@chakra-ui/react"
 import NavItem from './NavItem'
 import supabase from "../../supabase";
 import { useNavigate } from "react-router-dom"
 import { IsAuthed } from "./RequireAuth";
+import { useState } from 'react'
 
 // Current Classes - Implemented later
 const classItems = []
 
 // Navigation to different site pages
 const NavItems = [
+    { name: 'Create Room', icon: VscAdd, to: '/' },
+    { name: 'Find Room', icon: VscSearch, to: '/'},
     { name: 'Home', icon: VscHome, to: '/' },
     { name: 'Classes', icon: VscNotebook, to: '/classes', classes: classItems },
     { name: 'Test Questions', icon: VscBeaker, to: '/testQuestions' }
@@ -18,11 +21,13 @@ const NavItems = [
 
 export default function SideNav() {
 
+    const [session, setSession] = useState()
+
     //Router
     const navigate = useNavigate()
 
     const handleSettingsClick = () => {
-        navigate("/settings");
+        navigate("/settings",  { state: { session }});
     };
 
     const onSignOut = async function () {
@@ -90,6 +95,12 @@ export default function SideNav() {
                 })}
 
             </Flex>
+            {/* Create a thin divider between the upper and lower portions */}
+            <Divider
+                orientation='horizontal'
+                display={open ? "flex" : "none"}
+            />
+
             {/* Lower Portion */}
             <Flex
                 flexDir="column"
@@ -141,7 +152,7 @@ export default function SideNav() {
                             <Switch isChecked={colorMode === "dark"} onChange={toggleColorMode} />
                         </MenuItem>
                         <MenuItem>Profile</MenuItem>
-                        <MenuItem onClick={handleSettingsClick}>Settings</MenuItem>;
+                        <MenuItem onClick={() => handleSettingsClick()}>Settings</MenuItem>;
                         <MenuItem onClick={() => onSignOut()}>Sign out</MenuItem>
                     </MenuList>
                 </Menu>

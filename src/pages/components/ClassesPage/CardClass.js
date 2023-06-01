@@ -1,28 +1,30 @@
-import { useState } from "react";
 import {
   Box,
   Heading,
   Text,
   Img,
   Flex,
-  Center,
   useColorModeValue,
   HStack,
 } from "@chakra-ui/react";
-import { BsArrowUpRight, BsHeartFill, BsHeart } from "react-icons/bs";
+import { BsArrowUpRight } from "react-icons/bs";
 
-export default function PostWithLike() {
-  const [liked, setLiked] = useState(false);
-
+export default function CardClass({ year, classNumber, className, classDescription }) {
+  const bgColor = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("black", "white");
+  const hoverColor = useColorModeValue("gray.200", "gray.900");
+  
   return (
     <Box
       rounded={"sm"}
       mx={5}
       my={2.5}
       overflow={"hidden"}
-      bg="white"
+      bg={bgColor}
       border={"1px"}
-      _hover={{ bg: "#f5f5f5" }}
+      _hover={{ bg: hoverColor }}
+      h="330px"
+      w="450px"
     >
       <Box h={"150px"} borderBottom={"1px"} borderColor="black">
         <Img
@@ -45,17 +47,17 @@ export default function PostWithLike() {
           mb={2}
         >
           <Text fontSize={"xs"} fontWeight="medium">
-            2023
+            {year}
           </Text>
         </Box>
-        <Heading color={"black"} fontSize={"2xl"} noOfLines={1}>
-          PNB 3251: Bio of the Brain
+        <Heading color={textColor} fontSize={"2xl"} noOfLines={1}>
+          {classNumber}: {className}
         </Heading>
-        <Text color={"gray.500"} noOfLines={2}>
-          We will be learning about the brain and how it works.
+        <Text color={textColor} noOfLines={2} isTruncated>
+          {classDescription}
         </Text>
       </Box>
-      <HStack borderTop={"1px"} color="black">
+      <HStack borderTop={"1px"} color={textColor}>
         <Flex
           p={4}
           alignItems="center"

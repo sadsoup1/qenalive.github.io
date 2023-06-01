@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Home from './pages/Home'
+//import Home from './pages/Home'
 import Login from './pages/Login'
 import Lost from './pages/Lost'
 import Settings from './pages/Settings'
@@ -31,8 +31,9 @@ function App() {
             After User Sign In 
             Wrapped in Auth component to restrict to user login
           */}
-          <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
-          <Route path='/classes' element={<RequireAuth> <Classes /> </RequireAuth>} />
+          {/*<Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />*/}
+          {/*<Route path='/classes' element={<RequireAuth> <Classes /> </RequireAuth>} />/>*/}
+          <Route path='/' element={<RequireAuth> <Classes /> </RequireAuth>} />
           <Route path='/settings' element={<RequireAuth> <Settings /> </RequireAuth>} />
           <Route path='/testQuestions' element={<RequireAuth> <TestQuestions /> </RequireAuth>} />
 

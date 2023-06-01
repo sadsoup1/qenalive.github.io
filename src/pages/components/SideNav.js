@@ -8,14 +8,14 @@ import { IsAuthed } from "./RequireAuth";
 import { useState } from 'react'
 
 // Current Classes - Implemented later
-const classItems = []
+const classItems = []//[{name: "Course 1"},{name: "Course 2"}, {name: "Course 3"}, {name: "Course 4"}]
 
 // Navigation to different site pages
 const NavItems = [
     { name: 'Create Room', icon: VscAdd, to: '/' },
     { name: 'Find Room', icon: VscSearch, to: '/'},
-    { name: 'Home', icon: VscHome, to: '/' },
-    { name: 'Classes', icon: VscNotebook, to: '/classes', classes: classItems },
+    //{ name: 'Home', icon: VscHome, to: '/' },
+    { name: 'Classes', icon: VscNotebook, to: '/', classes: classItems },
     { name: 'Test Questions', icon: VscBeaker, to: '/testQuestions' }
 ]
 
@@ -95,11 +95,6 @@ export default function SideNav() {
                 })}
 
             </Flex>
-            {/* Create a thin divider between the upper and lower portions */}
-            <Divider
-                orientation='horizontal'
-                display={open ? "flex" : "none"}
-            />
 
             {/* Lower Portion */}
             <Flex

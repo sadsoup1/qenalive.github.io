@@ -23,16 +23,38 @@ import { useLocation } from 'react-router-dom';
 
 export default function Classes() {
 
+    // use this function to change the title of the page
+    useEffect(() => {
+        document.title = 'Classes';
+    }, []);
+
+    // use this function to change the favicon to the alert icon
+    const useAlert = (() => {
+        useEffect(() => {
+            let link = document.querySelector("link[rel~='icon']");
+            if (!link) {
+                link = document.createElement('link');
+                link.rel = 'icon';
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+            link.href = 'qena_32_dark_alert.png';
+        }, []);
+    })
+
+    // call the useAlert function to set the favicon
+    useAlert();
+
+    // use this function to get the session information
     const location = useLocation();
     const session = location.state?.session;
-    console.log(session)
 
+    // set up state variables for the name modal and user name input fields
     const [showNameModal, setShowNameModal] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
+    // check if the user has entered their name in the user_profile table
     async function check_if_fully_in() {
-
         const { data: userProfileData, error: userProfileError } = await supabase
             .from('user_profile')
             .select('auth_id')
@@ -48,8 +70,10 @@ export default function Classes() {
         }
     }
 
+    // call the check_if_fully_in function to check if the user has entered their name
     check_if_fully_in();
 
+    // set up state variables for the classes and create class modal
     const bgColor = useColorModeValue("gray.100", "gray.700");
     const textColor = useColorModeValue("gray.800", "gray.50");
     const [classes, setClasses] = useState([]);
@@ -58,10 +82,12 @@ export default function Classes() {
     const [courseName, setCourseName] = useState("");
     const [description, setDescription] = useState("");
 
+    // fetch the classes from the course table when the component mounts
     useEffect(() => {
         fetchClasses();
     }, []);
 
+    // fetch the classes from the course table
     const fetchClasses = async () => {
         const { data: classes, error } = await supabase
             .from("course")
@@ -70,8 +96,8 @@ export default function Classes() {
         else setClasses(classes);
     };
 
+    // create a new class in the course table
     const handleCreateCourse = async () => {
-        // const { data, error } = await supabase
         const { error } = await supabase
             .from("course")
             .insert({ course_number: courseNumber, course_name: courseName, description: description });
@@ -82,6 +108,7 @@ export default function Classes() {
         }
     };
 
+    // update the user's name in the user_profile table
     const handleNameSubmit = async () => {
         const userdata = await supabase.auth.getUser();
         const { data, error } = await supabase
@@ -101,6 +128,7 @@ export default function Classes() {
         }
     };
 
+    // render the component
     return (
         <Box w="100vw" h="100vh" bg={bgColor} overflow={"scroll"}>
             <SimpleGrid columns={1} rows={2} spacing={10} spacingY={5} mt="5">

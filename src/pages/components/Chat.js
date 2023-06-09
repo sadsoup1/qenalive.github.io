@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Input, Button, HStack, Box, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import { Input, Button, HStack, Box, Table, Tbody, Tr, Badge, Td } from '@chakra-ui/react';
 import supabase from '../../supabase';
 
 export default function Chat() {
@@ -8,7 +8,8 @@ export default function Chat() {
 
     useEffect(() => {
         // Subscribe to new messages in the chat messages table
-        const chat = supabase.channel('custom-insert-channel')
+        // const chat = supabase.channel('custom-insert-channel')
+        supabase.channel('custom-insert-channel')
             .on(
                 'postgres_changes',
                 { event: 'INSERT', schema: 'public', table: 'chat' },
@@ -22,6 +23,7 @@ export default function Chat() {
 
     async function fetchData() {
         let { data: messages, error } = await supabase.from('chat').select('*');
+        console.log(error);
         setMessages(messages);
     }
 
@@ -36,14 +38,24 @@ export default function Chat() {
 
         const userdata = await supabase.auth.getUser()
 
+        const { data: userProfileData, error: userProfileError } = await supabase
+            .from('user_profile')
+            .select('username')
+            .eq('auth_id', userdata.data.user.id)
+
+        if (userProfileError) {
+            console.log(userProfileError)
+        }
+
         // Insert the new message into the chat messages table
         const { data, error } = await supabase.from('chat').insert({
             message: newMessage,
-            sender_id: userdata.data.user.id,
+            sender_id: userProfileData[0].username,
             created_at: new Date().toISOString(),
         });
 
         if (error) {
+            console.log(data);
             console.log(error);
         } else {
             // Clear the input field after the message is sent
@@ -52,21 +64,14 @@ export default function Chat() {
     };
 
     return (
-        <Box>
-            <Table variant="simple">
-                <Thead>
-                    <Tr>
-                        <Th>Message</Th>
-                        <Th>Sender ID</Th>
-                        <Th>Created At</Th>
-                    </Tr>
-                </Thead>
+        <Box maxW="500px" maxH="360px" mx="auto" my="auto" >
+            <Table size='sm' variant="unstyled" >
                 <Tbody>
                     {messages.map(message => (
                         <Tr key={message.id}>
                             <Td>{message.message}</Td>
-                            <Td>{message.sender_id}</Td>
-                            <Td>{new Date(message.created_at).toLocaleString()}</Td>
+                            <Td><Badge>{message.sender_id}</Badge></Td>
+                            <Td>{new Date(message.created_at).toLocaleTimeString()}</Td>
                         </Tr>
                     ))}
                 </Tbody>

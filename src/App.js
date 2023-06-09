@@ -11,6 +11,8 @@ import RequireAuth from './pages/components/RequireAuth';
 import { Flex } from '@chakra-ui/react';
 import AboutUs from './pages/AboutUs';
 import TestQuestions from './pages/TestQuestions';
+import CheckVerification from './pages/CheckVerification';
+import UpdatePass from './pages/UpdatePass';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Login />} />
           <Route path='/aboutus' element={<AboutUs />} />
+          <Route path='/checkverification' element={<CheckVerification />} />
+          <Route path="/updatepass" element={<UpdatePass />} />
 
 
           {/* 

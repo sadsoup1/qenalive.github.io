@@ -1,7 +1,6 @@
 import {
     Button,
     FormControl,
-    FormLabel,
     Input,
     useToast,
     VStack,
@@ -66,21 +65,57 @@ export default function LoginTab() {
         }
     }
 
+    const ForgotPassword = async function () {
+        toast.closeAll() //Closes all previous opened toasts (makes spam clicking submit be less annoying)
+        if (email === "") { //Can limit what is/isn't acceptable for a password (use methods for comparisons for more complicated checks)
+            toast({
+                title: "Please enter your email to reset your password!",
+                position: 'bottom',
+                status: 'error',
+                duration: 5000,
+                isClosable: false,
+            })
+            return
+        }
+
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+            redirect_to: '/updatepass',
+        });
+
+        if (error) {
+            toast({
+                title: error,
+                position: 'bottom',
+                status: 'error',
+                duration: 3000,
+                isClosable: false,
+            })
+        }
+
+        toast({
+            title: "Password reset email sent!",
+            position: 'bottom',
+            status: 'success',
+            duration: 5000,
+            isClosable: false,
+        })
+
+
+    }
+
     return (
         <VStack as='form'>
             <FormControl isRequired>
-                <FormLabel color={colorMode === 'light' ? 'gray.600' : 'whiteAlpha.900'}>Email</FormLabel>
                 <Input
                     value={email}
                     onChange={(e) => { setEmail(e.target.value) }}
-                    placeholder='rsmith@gmail.com'
+                    placeholder='email'
                     type='email'
                     bg={colorMode === 'light' ? 'gray.100' : 'gray.800'}
                     color={colorMode === 'light' ? 'gray.800' : 'white'}
                 />
             </FormControl>
-            <FormControl isRequired>
-                <FormLabel color={colorMode === 'light' ? 'gray.600' : 'whiteAlpha.900'}>Password</FormLabel>
+            <FormControl isRequired pb={3}>
                 <Input
                     value={password}
                     onChange={(e) => { setPassword(e.target.value) }}
@@ -91,6 +126,7 @@ export default function LoginTab() {
                 />
             </FormControl>
             <Button onClick={() => SignIn()} bg={colorMode === 'light' ? 'gray.400' : 'gray.600'} color={colorMode === 'light' ? 'gray.800' : 'white'}>Sign In</Button>
+            <Button onClick={() => ForgotPassword()} bg={colorMode === 'light' ? 'gray.400' : 'gray.600'} color={colorMode === 'light' ? 'gray.800' : 'white'} mt={3}>Forgot Password</Button>
         </VStack>
     )
 }

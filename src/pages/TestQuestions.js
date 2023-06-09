@@ -1,5 +1,5 @@
-import { Box, Heading, SimpleGrid, Center, useColorMode } from "@chakra-ui/react";
-import AddQuestion from './components/AddQuestion';
+import { Box, SimpleGrid, Center, useColorMode } from "@chakra-ui/react";
+// import AddQuestion from './components/AddQuestion';
 import Chat from './components/Chat';
 
 export default function TestQuestions() {
@@ -15,7 +15,7 @@ export default function TestQuestions() {
             boxShadow="base"
             p="3"
           >
-            <AddQuestion />
+            {/* <AddQuestion /> */}
             <Chat />
           </Box>
         </Center>

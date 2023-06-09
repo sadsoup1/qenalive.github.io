@@ -1,5 +1,6 @@
 import { Box, Heading, SimpleGrid, Center, useColorMode } from "@chakra-ui/react";
 import AddQuestion from './components/AddQuestion';
+import Chat from './components/Chat';
 
 export default function TestQuestions() {
   const { colorMode } = useColorMode();
@@ -15,6 +16,7 @@ export default function TestQuestions() {
             p="3"
           >
             <AddQuestion />
+            <Chat />
           </Box>
         </Center>
       </SimpleGrid>

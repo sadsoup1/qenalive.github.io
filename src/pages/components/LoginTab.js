@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import supabase from '../../supabase'
 
-export default function SignUpTab() {
+export default function LoginTab() {
     //For Supabase
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -41,7 +41,10 @@ export default function SignUpTab() {
             })
             console.log(data)
             if (data.session) {
+
+                // it worked
                 navigate('/', { state: { session: data.session } })
+
             } else {
                 toast({
                     title: "Please check your information or sign up!",

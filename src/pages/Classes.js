@@ -19,8 +19,37 @@ import {
 } from "@chakra-ui/react";
 import CardClass from "./components/ClassesPage/CardClass";
 import supabase from '../supabase'
+import { useLocation } from 'react-router-dom';
 
 export default function Classes() {
+
+    const location = useLocation();
+    const session = location.state?.session;
+    console.log(session)
+
+    const [showNameModal, setShowNameModal] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+
+    async function check_if_fully_in() {
+
+        const { data: userProfileData, error: userProfileError } = await supabase
+            .from('user_profile')
+            .select('auth_id')
+            .eq('email', session.user.email)
+
+        if (userProfileError) {
+            console.log(userProfileError)
+            return
+        }
+
+        if (userProfileData[0].auth_id == null) {
+            setShowNameModal(true);
+        }
+    }
+
+    check_if_fully_in();
+
     const bgColor = useColorModeValue("gray.100", "gray.700");
     const textColor = useColorModeValue("gray.800", "gray.50");
     const [classes, setClasses] = useState([]);
@@ -53,6 +82,25 @@ export default function Classes() {
         }
     };
 
+    const handleNameSubmit = async () => {
+        const userdata = await supabase.auth.getUser();
+        const { data, error } = await supabase
+            .from('user_profile')
+            .update({
+                first_name: firstName,
+                last_name: lastName,
+                auth_id: userdata.data.user.id
+            })
+            .eq('email', session.user.email);
+
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(data);
+            setShowNameModal(false);
+        }
+    };
+
     return (
         <Box w="100vw" h="100vh" bg={bgColor} overflow={"scroll"}>
             <SimpleGrid columns={1} rows={2} spacing={10} spacingY={5} mt="5">
@@ -78,6 +126,37 @@ export default function Classes() {
                     </Box>
                 </Center>
             </SimpleGrid>
+            {showNameModal && (
+                <Modal isOpen={showNameModal} onClose={() => setShowNameModal(false)}>
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Enter Your Name</ModalHeader>
+                        <ModalBody>
+                            <FormControl>
+                                <FormLabel>First Name</FormLabel>
+                                <Input
+                                    placeholder="Enter your first name"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                />
+                            </FormControl>
+                            <FormControl mt={4}>
+                                <FormLabel>Last Name</FormLabel>
+                                <Input
+                                    placeholder="Enter your last name"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                />
+                            </FormControl>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button colorScheme="blue" mr={3} onClick={handleNameSubmit}>
+                                Submit
+                            </Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            )}
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
                 <ModalOverlay />
                 <ModalContent>

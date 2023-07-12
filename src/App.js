@@ -10,7 +10,7 @@ function App() {
   // isMobile is true if the window width is beyond 768 pixels
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
-   // Sizes is the current size of the 1 pane we have, hence 1 value in the right array. setSeizes is the function to update the sizes
+  // Sizes is the current size of the 1 pane we have, hence 1 value in the right array. setSeizes is the function to update the sizes
   const [sizes, setSizes] = useState([150]);
 
   // Handles showing/hiding the button to collapse sidebar if hovering over sidebar
@@ -22,7 +22,7 @@ function App() {
 
   // Set defaults of each display mode of the sidenav when sizes change
   useEffect(() => {
-    if (isMobile) { 
+    if (isMobile) {
       setSizes(['90%'])             // Set the height of the sidebar to 10% of the screen height. 90 is the height of the main pane
       setIsCollapsed(true)          // Collapse the sidebar to prevent it from being able to be resized
       setIsHoveringCollapse(false)  // Hide the button since mobile should not have options to change size
@@ -71,10 +71,15 @@ function App() {
   }
 
   return (
+    // Everything fits inside this flex container that is the entire screen
     <Flex
       h="100vh"
       w="100vw"
     >
+      {/* 
+        Depending on the isMobile flag, the layout is either desktop or mobile orientated.
+        They implement the same functions so you only need to edit things once.
+      */}
       {isMobile ? (
         <MobileLayout
           handleMouseEnter={handleMouseEnter}
@@ -105,7 +110,6 @@ function App() {
     </Flex>
 
   );
-
 }
 
 export default App;

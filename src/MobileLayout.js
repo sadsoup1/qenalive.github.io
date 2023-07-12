@@ -5,12 +5,22 @@ import './sidebar-split-pane.css';
 import Main from "./Main";
 import Sidebar from "./Sidebar";
 
+// Mobile is different than Desktop in that the Pane component needs to be listed below the Main component
+//  in order to have the sidebar be on the bottom of the screen.
+// If we want the sidebar to be on the top, we could just switch the order of the components.
 function MobileLayout({ handleMouseEnter, handleMouseLeave, isCollapsed, onCollapseButtonClick, sizes, isHoveringCollapse, isHoveringExpand, onExpandButtonClick, setSizes }) {
     return (
+        // This flex needs to be 100% of the parent flex inside App.js
         <Flex
             h="100%"
             w="100%"
         >
+            {/* 
+                Implements the split pane library I found on npm.
+                I have it setup to have one pane and the other pane is the rest of the screen.
+                What is inside the pane is the sidebar component that can expand/collapse/be resized.
+                The rest of the page is responsive to the sidebar.
+            */}
             <SplitPane
                 split="horizontal"    // Orienation of the split
                 sizes={sizes}       // The initial sizes of each pane
@@ -19,14 +29,20 @@ function MobileLayout({ handleMouseEnter, handleMouseLeave, isCollapsed, onColla
                 allowResize={!isCollapsed} // Use the isCollapsed state variable to control the allowResize prop
 
             >
+                {/* 
+                    The rest of the stuff is all responsive to the size of the pane
+                */}
                 <Main />
 
-                <Pane               // Left pane for the sidebar
+                {/* 
+                    This is the pane that is resizable and holds the sidebar
+                */}
+                <Pane                 // Left pane for the sidebar. These numbers were arbitrary and can be changed
                     minSize={100}     // Minimum size of the pane in px
                     maxSize='50%'     // Maximum size of the pane in %
 
                 >
-                    <Sidebar
+                    <Sidebar    // Pass along the functions and props from App.js to this component
                         isMobile={true}
                         handleMouseEnter={handleMouseEnter}
                         handleMouseLeave={handleMouseLeave}

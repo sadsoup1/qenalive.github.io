@@ -1,5 +1,7 @@
 import { Avatar, Box, Flex, Icon, Image, Stack } from "@chakra-ui/react";
-import { VscArrowLeft, VscArrowRight, VscSearch, VscAdd } from 'react-icons/vsc';
+import { VscArrowLeft, VscArrowRight } from 'react-icons/vsc';
+import CreateRoomModal from './RoomCreatorModal';
+import FindRoomModal from './RoomFinderModal';
 
 // This is the sidebar itself
 function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, onCollapseButtonClick, sizes, isHoveringCollapse, isHoveringExpand, onExpandButtonClick }) {
@@ -18,7 +20,7 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
             {isMobile ? null : (
                 <>
                     {/* The button to collapse the sidebar */}
-                    <Flex 
+                    <Flex
                         disabled={isCollapsed}
                         as="button"
                         onClick={onCollapseButtonClick}
@@ -109,14 +111,16 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                             For both these buttons, add a margin to center them on mobile layout
                             and remove the text on mobile
                         */}
-                        <Flex >
+                        <CreateRoomModal isCollapsed={isCollapsed}/>
+                        <FindRoomModal isCollapsed={isCollapsed}/>
+                        {/* <Flex as={<CreateRoomModal />}>
                             <Icon as={VscAdd} fontSize='2xl' ml={!isCollapsed ? 5 : 0} />
                             {!isCollapsed ? "Create room" : undefined}
-                        </Flex>
-                        <Flex >
+                        </Flex> */}
+                        {/* <Flex as={Button}>
                             <Icon as={VscSearch} fontSize='2xl' ml={!isCollapsed ? 5 : 0} />
                             {!isCollapsed ? "Find room" : undefined}
-                        </Flex>
+                        </Flex> */}
                     </Stack>
                 </Box>
 
@@ -124,14 +128,15 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                 {
                     isMobile ? undefined :
                         // Eventually will be a scrollable list of classes in this section
-                        <Box 
-                            w={isMobile ? '100%' : '100%'} 
-                            h={isMobile ? '100%' : '60%'} 
+                        <Box
+                            w={isMobile ? '100%' : '100%'}
+                            h={isMobile ? '100%' : '60%'}
                             bg='blue.400'
                         >
 
                         </Box>
                 }
+
                 {/* This box holds the account icon and drop down stuff for settings */}
                 <Flex
                     w={isMobile ? '20%' : '100%'}

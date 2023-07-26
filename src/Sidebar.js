@@ -2,9 +2,18 @@ import { Avatar, Box, Flex, Icon, Image, Stack } from "@chakra-ui/react";
 import { VscArrowLeft, VscArrowRight } from 'react-icons/vsc';
 import CreateRoomModal from './RoomCreatorModal';
 import FindRoomModal from './RoomFinderModal';
+import RoomList from "./RoomList";
+import { useState } from "react";
+
 
 // This is the sidebar itself
 function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, onCollapseButtonClick, sizes, isHoveringCollapse, isHoveringExpand, onExpandButtonClick }) {
+    // Get the list of joined rooms to pass to the room list component which gets updated on each new join
+    const [joinedRooms, setJoinedRooms] = useState(() => {
+        const data = window.localStorage.getItem('JOINED_ROOMS_LIST');
+        return data !== null ? JSON.parse(data) : [];
+    });
+
     return (
         <Flex
             h="100%"                        // Height of the sidebar takes up the entire pane size it fits in
@@ -107,20 +116,8 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                         alignItems={isCollapsed ? "center" : "left"}
                         spacing="40%"
                     >
-                        {/* 
-                            For both these buttons, add a margin to center them on mobile layout
-                            and remove the text on mobile
-                        */}
-                        <CreateRoomModal isCollapsed={isCollapsed}/>
-                        <FindRoomModal isCollapsed={isCollapsed}/>
-                        {/* <Flex as={<CreateRoomModal />}>
-                            <Icon as={VscAdd} fontSize='2xl' ml={!isCollapsed ? 5 : 0} />
-                            {!isCollapsed ? "Create room" : undefined}
-                        </Flex> */}
-                        {/* <Flex as={Button}>
-                            <Icon as={VscSearch} fontSize='2xl' ml={!isCollapsed ? 5 : 0} />
-                            {!isCollapsed ? "Find room" : undefined}
-                        </Flex> */}
+                        <CreateRoomModal isCollapsed={isCollapsed} />
+                        <FindRoomModal isCollapsed={isCollapsed} setJoinedRooms={setJoinedRooms} />
                     </Stack>
                 </Box>
 
@@ -133,7 +130,7 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                             h={isMobile ? '100%' : '60%'}
                             bg='blue.400'
                         >
-
+                            <RoomList joinedRooms={joinedRooms}/>
                         </Box>
                 }
 

@@ -52,7 +52,6 @@ function CreateRoomModal({ isCollapsed }) {
 
     // A function that triggers whenever rooms changes which stores it in local storage
     useEffect(() => {
-        console.log("rooms changed");
         localStorage.setItem('ROOMS_LIST', JSON.stringify(rooms));
     }, [rooms]);
 

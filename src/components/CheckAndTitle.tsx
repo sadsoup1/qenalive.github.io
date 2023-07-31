@@ -36,6 +36,10 @@ export default function CheckAndTitle({ title, children }: Props) {
         // check if they got a username
         check_if_fully_in();
       }
+
+      if (data) {
+        console.log(9)
+      }
     };
     getUser();
   }, []);

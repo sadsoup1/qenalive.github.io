@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { Text, Center, Flex, Image, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, FormControl, InputRightElement, useColorMode, useToast, Spinner } from '@chakra-ui/react';
+import { Text, Center, Flex, Image, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, FormControl, InputRightElement, useColorMode, useToast, Spinner, VStack } from '@chakra-ui/react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLock, FaUserAlt } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
@@ -44,20 +44,27 @@ export default function SignUpPage() {
             // sign up
             const { data, error } = await supabase.auth.signUp({ email, password });
             if (error) {
-                throw error;
+               console.log(error)
+              throw error;
             }
 
-            //Insert username and other data into profiles table
-            const { error: insertError } = await supabase.from('profiles').update([{ userid: data?.user?.id }]);
+            //Creates new profile by inserting user Id into profiles table
+            const { error: insertError } = await supabase.from('user_profile').insert([{ auth_id: data?.user?.id }]);
             if (insertError) {
+                console.log(insertError)
                 throw insertError;
             }
-
-            //Navigate to check your email page
+            
+            //If no error were thrown, will navigate to check your email page
             navigate('/checkyouremail');
+
+            
 
 
         } catch (err) {
+
+            //Error thrown, Could be for "AuthApiError: Email rate limit exceeded" or user already has account
+            //Email rate limit error needs to be solved
             return toast({
                 title: 'You may already have an account',
                 description: "Check your email for verification (might be under spam)",//(err as Error).message,
@@ -77,23 +84,28 @@ export default function SignUpPage() {
             alignItems='center'
             color="white"
         >
+            
+            <Canvas style={{ width: '100vw', height: '100vh', position: 'absolute', top: 0, left: 0, zIndex: -1 }} />
             <Stack
                 flexDir='column'
                 mb='2'
                 justifyContent='center'
                 alignItems='center'
+                position="fixed"
             >
 
-                <Canvas style={{ width: '100vw', height: '100vh', position: 'absolute', top: 0, left: 0, zIndex: -1 }} />
-                <Image src="qena192 text.png" alt="Logo" boxSize="80px" />
+                
 
-                <Box>
+
+                <Box position='fixed'
+                    bgColor="white"
+                    borderRadius="9px">
                     <form onSubmit={handleSubmit}>
                         <Stack
                             spacing={4}
                             p='1rem'
-                            backgroundColor={'blackAlpha.400'}
                             boxShadow='md'
+                            color='black'
                         >
                             <FormControl>
                                 <InputGroup>
@@ -138,7 +150,6 @@ export default function SignUpPage() {
                                 type='submit'
                                 variant='solid'
                                 width='full'
-                                bg={"whiteAlpha.300"} _hover={{ backgroundColor: 'whiteAlpha.400' }}
                             >
                                 Sign Up
                             </Button>
@@ -148,18 +159,24 @@ export default function SignUpPage() {
                                 maxW={'md'}
                                 variant={'solid'}
                                 leftIcon={<FcGoogle />}
-                                bg={"blackAlpha.600"} _hover={{ bg: "black" }}
+                                bg={"black"} _hover={{ bg: "grey" }}
+                                color='white'
                             >
                                 <Center>
                                     <Text>Sign up with Google</Text>
                                 </Center>
                             </Button>
+                            <Center>
+                                <VStack>
+                                    <Link onClick={loading} to='/login'>
+                                        {isLoading == true ? <Spinner /> : 'Back to Login'}
+                                    </Link>
+                                    <Image src="qena192 text.png" alt="Logo" boxSize="80px"/>
+                                </VStack>
+                            </Center>
                         </Stack>
                     </form>
                 </Box>
-                <Link onClick={loading} to='/login'>
-                    {isLoading == true ? <Spinner /> : 'Back to Login'}
-                </Link>
             </Stack>
         </Flex>
     );

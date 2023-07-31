@@ -22,8 +22,7 @@ export default function BetaPage() {
         const getUser = async () => {
             const { data, error } = await supabase.auth.getUser();
             // console.log(data);
-            if (data.user != null)
-                navigate('/session');
+            if (data.user != null);
         };
         getUser();
     }, []);
@@ -56,7 +55,7 @@ export default function BetaPage() {
 
 
     return (
-        <Box position="relative">
+        <Box position="relative" bgColor="#65727e" w="100vw">
 
             {/* 1st Page */}
             <Canvas />
@@ -99,27 +98,23 @@ export default function BetaPage() {
 
 
             {/* 3rd page */}
+
+            {/* Banner Image */}
+            <a href="https://husky-developers.github.io" className="Banner_Image_Container">
             <Box
                 gap='2rem'
                 textAlign='center'
-                pt={"3rem"}
-                bgColor={useColorModeValue('gray.50', 'blue.900')}
+                bgColor="#212529"
             >
-                <Box fontSize={['30px', '4xl']} fontWeight='700' >Our Team (insert Husky Devs promotion)</Box>
-
-                <br />
+                <img src="husky_developer_banner.png" alt="Husky Developers Banner" className="Banner_Image"></img>
             </Box>
+            </a>
 
             {/* Footer */}
             <Stack direction={['column', null, 'row']} p={2}>
 
                 <Stack direction={'row'} mt={4} ml={4} mr={4}>
-                    <IconButton as="a" href="https://discord.com/" target="_blank" rel="noopener noreferrer" aria-label="Discord" icon={<FaDiscord />} mr={2} />
-                    <IconButton as="a" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" icon={<FaFacebookSquare />} mr={2} />
-                    <IconButton as="a" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" icon={<FaInstagram />} mr={2} />
-                    <IconButton as="a" href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter" icon={<FaTwitter />} mr={2} />
-                    <IconButton as="a" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube" icon={<FaYoutube />} mr={2} />
-                    <IconButton as="a" href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok" icon={<FaTiktok />} />
+                    <IconButton as="a" href="https://discord.gg/T3BUHPFUr2" target="_blank" rel="noopener noreferrer" aria-label="Discord" icon={<FaDiscord />} mr={2} />7
                 </Stack>
 
                 <Box p={4} ml={'auto'}>

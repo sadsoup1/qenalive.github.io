@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabase';
-import { Box, Button, Center, Flex, FormControl, FormHelperText, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Stack, Text, chakra, useColorMode, useToast, Image, background } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, FormControl, FormHelperText, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Stack, Text, chakra, useColorMode, useToast, Image, background, VStack } from '@chakra-ui/react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaUserAlt, FaLock } from 'react-icons/fa';
 import Canvas from '../components/Beta/Canvas';
@@ -46,8 +46,17 @@ export default function Login() {
             })
             console.log(data)
             if (data.session) {
-                // it worked
-                navigate('/calendar')
+                // Successfully logged in
+            const { data: user_info, error } = await supabase
+            .from('user_profile')
+            .eq( "auth_id", data?.user?.id )
+            .select()
+
+            //
+            user_info?.username? navigate("/setup") : navigate("/session")
+
+            
+                
 
             } else {
                 toast({
@@ -119,21 +128,18 @@ export default function Login() {
             color="white"
         >
             <Canvas style={{ width: '100vw', height: '100vh', position: 'absolute', top: 0, left: 0, zIndex: -1, }} />
-            <Box>
+            <Box bgColor="white" position="fixed" borderRadius="9px"  color="black">
                 <Stack
                     flexDir='column'
                     mb='2'
                     justifyContent='center'
                     alignItems='center'
                 >
-                    <Image src="qena192 text.png" alt="Logo" boxSize="80px" />
-                    <Box>
+                    <Box >
                         <form onSubmit={handleSubmit}>
                             <Stack
                                 spacing={4}
                                 p='1rem'
-                                backgroundColor={'blackAlpha.400'}
-                                boxShadow='md'
                             >
                                 <FormControl>
                                     <InputGroup>
@@ -180,8 +186,7 @@ export default function Login() {
                                     type='submit'
                                     variant='solid'
                                     width='full'
-                                    bg={"whiteAlpha.300"} _hover={{ backgroundColor: 'whiteAlpha.400' }}
-                                >
+                                    >
                                     Login
                                 </Button>
                                 <Button
@@ -189,22 +194,29 @@ export default function Login() {
                                     maxW={'md'}
                                     variant={'solid'}
                                     leftIcon={<FcGoogle />}
-                                    bg={"blackAlpha.600"} _hover={{ bg: "black" }}
+                                    bg={"black"} _hover={{ bg: "grey" }}
+                                    color="white"
                                 >
                                     <Center>
                                         <Text>Sign in with Google</Text>
                                     </Center>
                                 </Button>
                             </Stack>
+                            <Center> 
+                                <VStack>
+                                <Box>
+                                    New Here?{' '}
+                                    <Link to='/signup'>
+                                        Sign Up
+                                    </Link>
+                                </Box>
+                                <Image src="qena192 text.png" alt="Logo" boxSize="80px" />
+                                </VStack>
+                            </Center>  
+                            
                         </form>
                     </Box>
                 </Stack>
-            </Box>
-            <Box>
-                New Here?{' '}
-                <Link to='/signup'>
-                    Sign Up
-                </Link>
             </Box>
         </Flex>
     );

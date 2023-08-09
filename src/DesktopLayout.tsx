@@ -1,14 +1,25 @@
 import { Flex } from "@chakra-ui/react";
 import SplitPane, { Pane } from 'split-pane-react';
 import 'split-pane-react/esm/themes/default.css'
-import './sidebar-split-pane.css';
+import './sidebar-split-pane.css'
 import Main from "./Main";
 import Sidebar from "./Sidebar";
 
-// Mobile is different than Desktop in that the Pane component needs to be listed below the Main component
-//  in order to have the sidebar be on the bottom of the screen.
-// If we want the sidebar to be on the top, we could just switch the order of the components.
-function MobileLayout({ handleMouseEnter, handleMouseLeave, isCollapsed, onCollapseButtonClick, sizes, isHoveringCollapse, isHoveringExpand, onExpandButtonClick, setSizes }) {
+type LayoutProps = {
+    handleMouseEnter: Function,
+    handleMouseLeave: Function,
+    isCollapsed: boolean,
+    onCollapseButtonClick: Function,
+    sizes: number[],
+    isHoveringCollapse: boolean,
+    isHoveringExpand: boolean,
+    onExpandButtonClick: Function,
+    setSizes: Function,
+}
+
+// Desktop is different than Mobile in that the Pane component needs to be listed above the Main component
+//  in order to have the sidebar be on the left side of the screen.
+function DesktopLayout({ handleMouseEnter, handleMouseLeave, isCollapsed, onCollapseButtonClick, sizes, isHoveringCollapse, isHoveringExpand, onExpandButtonClick, setSizes }: LayoutProps) {
     return (
         // This flex needs to be 100% of the parent flex inside App.js
         <Flex
@@ -22,28 +33,19 @@ function MobileLayout({ handleMouseEnter, handleMouseLeave, isCollapsed, onColla
                 The rest of the page is responsive to the sidebar.
             */}
             <SplitPane
-                split="horizontal"    // Orienation of the split
-                sizes={sizes}       // The initial sizes of each pane
-                onChange={setSizes} // Function to call when the size changes?
-                resizerSize={4}     // Width of the resizer border when you hover/click
-                allowResize={!isCollapsed} // Use the isCollapsed state variable to control the allowResize prop
-
+                split="vertical"
+                sizes={sizes}
+                onChange={(newSizes: number[]) => setSizes(newSizes)}
+                resizerSize={4}
+                allowResize={!isCollapsed}
+                sashRender={() => <div className="sash" />}
             >
-                {/* 
-                    The rest of the stuff is all responsive to the size of the pane
-                */}
-                <Main />
-
-                {/* 
-                    This is the pane that is resizable and holds the sidebar
-                */}
-                <Pane                 // Left pane for the sidebar. These numbers were arbitrary and can be changed
+                <Pane
                     minSize={100}     // Minimum size of the pane in px
                     maxSize='50%'     // Maximum size of the pane in %
-
                 >
                     <Sidebar    // Pass along the functions and props from App.js to this component
-                        isMobile={true}
+                        isMobile={false}
                         handleMouseEnter={handleMouseEnter}
                         handleMouseLeave={handleMouseLeave}
                         isCollapsed={isCollapsed}
@@ -53,12 +55,12 @@ function MobileLayout({ handleMouseEnter, handleMouseLeave, isCollapsed, onColla
                         isHoveringExpand={isHoveringExpand}
                         onExpandButtonClick={onExpandButtonClick}
                     />
-
                 </Pane>
+                <Main /> 
 
             </SplitPane>
         </Flex>
     )
 }
 
-export default MobileLayout;
+export default DesktopLayout;

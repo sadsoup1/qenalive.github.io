@@ -14,24 +14,34 @@ import {
 import { VscSearch } from 'react-icons/vsc';
 import { useState, useEffect } from 'react';
 
+type RoomModal = {
+    isCollapsed: boolean,
+    setJoinedRooms: Function,
+}
 
-function FindRoomModal({ isCollapsed, setJoinedRooms }) {
+type Room = {
+    roomName: string,
+    roomCode: string,
+}
+
+function FindRoomModal({ isCollapsed, setJoinedRooms }: RoomModal) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     // This gets the latest rooms from local storage and sets the rooms state variable to it
-    const [rooms, setRooms] = useState([]);
+    const [rooms, setRooms] = useState<Room[]>([]);
 
     // This is the room that is selected in the drop down
     const [selectedRoom, setSelectedRoom] = useState("");
 
     // This updates the selectedRoom variable whenever the user selects a room in the drop down
-    const handleRoomSelect = (event) => {
-        setSelectedRoom(event.target.value);
+    const handleRoomSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = event.target; // Destructure the event parameter to get the target property
+        setSelectedRoom(value);
     };
 
     // A list of rooms for selection in the drop down. Disabled rooms that are already joined
     const roomOptions = rooms.map((room) => {
-        const joinedRooms = window.localStorage.getItem('JOINED_ROOMS_LIST') || [];
+        const joinedRooms = JSON.parse(window.localStorage.getItem('JOINED_ROOMS_LIST') || '[]'); // Parse the joinedRooms variable
         const isJoined = joinedRooms.includes(room.roomCode);
         return (
             <option 
@@ -52,16 +62,16 @@ function FindRoomModal({ isCollapsed, setJoinedRooms }) {
 
     // Function to actually join the room when user clicks join with a selection
     function joinRoom() {
-        const roomList = JSON.parse(window.localStorage.getItem('ROOMS_LIST')) || [];
-        const joinedRooms = JSON.parse(window.localStorage.getItem('JOINED_ROOMS_LIST')) || [];
-        let joinedRoom = roomList.find(room => room.roomCode === selectedRoom);
+        const roomList = JSON.parse(window.localStorage.getItem('ROOMS_LIST') || '[]');
+        const joinedRooms = JSON.parse(window.localStorage.getItem('JOINED_ROOMS_LIST') || '[]');
+        let joinedRoom = roomList.find((room: Room) => room.roomCode === selectedRoom);
 
         // If the user has no stored rooms, create the list with the joined room
         if (joinedRooms.length === 0) {
             localStorage.setItem('JOINED_ROOMS_LIST', JSON.stringify([joinedRoom]));
         } else {
             // Otherwise, add the joined room to the list, if they aren't already in the room
-            if (!joinedRooms.find(room => room.roomCode === joinedRoom.roomCode)) {
+            if (!joinedRooms.find((room: Room) => room.roomCode === joinedRoom.roomCode)) {
                 joinedRooms.push(joinedRoom);
                 localStorage.setItem('JOINED_ROOMS_LIST', JSON.stringify(joinedRooms));
             }

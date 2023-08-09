@@ -3,11 +3,22 @@ import { VscArrowLeft, VscArrowRight } from 'react-icons/vsc';
 import CreateRoomModal from './RoomCreatorModal';
 import FindRoomModal from './RoomFinderModal';
 import RoomList from "./RoomList";
-import { useState } from "react";
+import { useState, MouseEventHandler} from "react";
 
+type SidebarProps = {
+    isMobile: boolean,
+    handleMouseEnter: Function,
+    handleMouseLeave: Function,
+    isCollapsed: boolean,
+    onCollapseButtonClick: Function,
+    sizes: number[],
+    isHoveringCollapse: boolean,
+    isHoveringExpand: boolean,
+    onExpandButtonClick: Function,
+}
 
 // This is the sidebar itself
-function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, onCollapseButtonClick, sizes, isHoveringCollapse, isHoveringExpand, onExpandButtonClick }) {
+function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, onCollapseButtonClick, sizes, isHoveringCollapse, isHoveringExpand, onExpandButtonClick }: SidebarProps) {
     // Get the list of joined rooms to pass to the room list component which gets updated on each new join
     const [joinedRooms, setJoinedRooms] = useState(() => {
         const data = window.localStorage.getItem('JOINED_ROOMS_LIST');
@@ -21,8 +32,8 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
             bg="gray.50"                    // Background color of the sidebar
             border='1px'                    // Border of the sidebar
             borderColor='gray.300'          // Border color of the sidebar
-            onMouseEnter={handleMouseEnter} // Function to call when the mouse enters the sidebar
-            onMouseLeave={handleMouseLeave} // Function to call when the mouse leaves the sidebar
+            onMouseEnter={handleMouseEnter as MouseEventHandler<HTMLDivElement>} // Function to call when the mouse enters the sidebar
+            onMouseLeave={handleMouseLeave as MouseEventHandler<HTMLDivElement>} // Function to call when the mouse leaves the sidebar
             display='flex'                  // TBH i forget what i needed this for but I think it was crucial for the stack?  
         >
             {/* The buttons to collapse/expand the sidebar get hidden/disabled on mobile */}
@@ -32,7 +43,7 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                     <Flex
                         disabled={isCollapsed}
                         as="button"
-                        onClick={onCollapseButtonClick}
+                        onClick={onCollapseButtonClick as MouseEventHandler<HTMLDivElement>}
                         _hover={{ bg: 'gray.100' }}
                         _active={{ boxShadow: 'outline' }}
                         w='35px'
@@ -56,7 +67,7 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                     <Flex
                         disabled={!isCollapsed}
                         as="button"
-                        onClick={onExpandButtonClick}
+                        onClick={onExpandButtonClick as MouseEventHandler<HTMLDivElement>}
                         _hover={{ bg: 'gray.100' }}
                         _active={{ boxShadow: 'outline' }}
                         w='35px'

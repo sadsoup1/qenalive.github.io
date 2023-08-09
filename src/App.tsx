@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flex } from "@chakra-ui/react";
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from "@chakra-ui/react";
@@ -23,7 +22,7 @@ function App() {
   // Set defaults of each display mode of the sidenav when sizes change
   useEffect(() => {
     if (isMobile) {
-      setSizes(['90%'])             // Set the height of the sidebar to 10% of the screen height. 90 is the height of the main pane
+      setSizes([(window.innerHeight * .9)]) // Set the height of the sidebar to 10% of the screen height. 90 is the height of the main pane
       setIsCollapsed(true)          // Collapse the sidebar to prevent it from being able to be resized
       setIsHoveringCollapse(false)  // Hide the button since mobile should not have options to change size
       setIsHoveringExpand(false)    // Hide the button since mobile should not have options to change size

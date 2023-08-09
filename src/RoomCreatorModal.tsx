@@ -14,14 +14,28 @@ import {
 import { VscAdd } from 'react-icons/vsc';
 import { useState, useEffect } from 'react';
 
+type ModalProps = {
+    isCollapsed: boolean,
+}
 
+type Room = {
+    roomName: string,
+    roomCode: string,
+}
+
+type RoomProps = {
+    roomName: string,
+    roomCode: string,
+    rooms: Array<Room>,
+    updateRooms: Function,
+}
 
 
 // The modal that pops up when the user click the create room button
-function CreateRoomModal({ isCollapsed }) {
+function CreateRoomModal({ isCollapsed }: ModalProps) {
     // Function creates a room using the name. Stores it in local storage until it gets merged to the supabase stuff
     // Room for lots of error checking here before creating such as duplicates
-    function CreateRoom(roomName, roomCode, rooms, updateRooms) {
+    function CreateRoom({roomName, roomCode, rooms, updateRooms}: RoomProps) {
         // Create the room object
         const newRoom = {
             roomName,
@@ -104,7 +118,7 @@ function CreateRoomModal({ isCollapsed }) {
                     </ModalBody>
                     <ModalFooter>
                         {/* On click of this button, create the room */}
-                        <Button colorScheme='gray' mr={3} onClick={() => CreateRoom(roomName, roomCode, rooms, updateRooms)}>
+                        <Button colorScheme='gray' mr={3} onClick={() => CreateRoom({roomName, roomCode, rooms, updateRooms})}>
                             Create
                         </Button>
                         {/* This button closes the modal */}

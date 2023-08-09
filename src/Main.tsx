@@ -8,9 +8,9 @@ function Main() {
             bg="white"
             boxShadow='inner'
         >
-
+            Stuff
         </Flex>
-    )
+    );
 }
 
 export default Main;

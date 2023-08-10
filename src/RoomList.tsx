@@ -20,19 +20,21 @@ function RoomList({joinedRooms}: Props) {
             direction='column'
             spacing="12px"
 
-            //TODO(Alex) adds unwanted padding to the right uncomment after fix
+            //TODO(Alex) adds unwanted padding to the right, uncomment after fix
             // overflowY="scroll"
             padding='16px'
         >
             {
                 joinedRooms.map((room) => {
                     return (
-                        <Button justifyContent="left"
-                            key={room.roomCode}
-                            size="lg"
-                        >
-                            {room.roomName}
-                        </Button>
+                            <Button 
+                                key={room.roomCode}
+                                size="lg"
+                                overflow="hidden"
+                            >
+                                {room.roomName}
+                            </Button>
+                        
                     );
                 })
             }

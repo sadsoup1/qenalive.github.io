@@ -30,13 +30,12 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
             h="100%"                        // Height of the sidebar takes up the entire pane size it fits in
             w="100%"                        // Width of the sidebar takes up the entire pane size it fits in
             bg="gray.50"                    // Background color of the sidebar
-            borderRight='3px'                    // Border of the sidebar
+            borderRight='3px'               // Border of the sidebar
             borderColor='gray.300'          // Border color of the sidebar
             onMouseEnter={handleMouseEnter as MouseEventHandler<HTMLDivElement>} // Function to call when the mouse enters the sidebar
             onMouseLeave={handleMouseLeave as MouseEventHandler<HTMLDivElement>} // Function to call when the mouse leaves the sidebar
             display='flex'                  // TBH i forget what i needed this for but I think it was crucial for the stack?  
         >
-
             {/* The buttons to collapse/expand the sidebar get hidden/disabled on mobile */}
             {isMobile ? null : (
                 <>
@@ -54,7 +53,7 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                         borderColor='gray.300'
                         boxShadow='inner'
                         pos={'absolute'}
-                        top={'85px'}
+                        top={'54px'}
                         left={sizes[0] - 55}
                         borderRadius='xl'
                         justifyContent='left'
@@ -78,7 +77,7 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                         borderColor='gray.300'
                         boxShadow='inner'
                         pos={'absolute'}
-                        top={'85px'}
+                        top={'54px'}
                         left={sizes[0] - 55}
                         borderRadius='xl'
                         justifyContent='left'
@@ -96,7 +95,6 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
             <Flex
                 w='100%'    // Take up the entire width of the parent component
                 h='100%'    // Take up the entire height of the parent component
-                // spacing='0'
                 direction={isMobile ? 'row' : 'column'} // If mobile, the sidebar is horizontal, otherwise it's vertical
             >
                 {/* 
@@ -122,8 +120,6 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                 <Box w={isMobile ? '60%' : '100%'} h={isMobile ? '100%' : 'auto'} bg='green.400'>
                     {/* This vertical stack holds the two buttons for create and find rooms */}
                     <Stack
-                        // w='100%'
-                        // h='100%'
                         direction={isMobile ? 'row' : 'column'}
                         justifyContent="center"
                         alignItems={isCollapsed ? "center" : "left"}
@@ -141,7 +137,7 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                         // Eventually will be a scrollable list of classes in this section
                         <Box
                             w={isMobile ? '100%' : '100%'}
-                            // h={isMobile ? '100%' : '60%'}
+                            h={isMobile ? '100%' : '60%'}
                             bg='blue.400'
                             flex='1'
                         >

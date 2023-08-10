@@ -84,8 +84,8 @@ function CreateRoomModal({ isCollapsed }: ModalProps) {
     return (
         <>
             {/* The actual button a user clicks that removes the font when collapse/mobile */}
-            <Button onClick={onOpen}>
-                <Icon as={VscAdd} fontSize='2xl' ml={!isCollapsed ? 5 : 0} />
+            <Button justifyContent='flex-start' fontSize='md' onClick={onOpen}>
+                <Icon w='20px' marginLeft='0px' margin='6px' as={VscAdd} fontSize='2xl' ml={!isCollapsed ? 5 : 0} />
                 {!isCollapsed ? "Create room" : undefined}
             </Button>
 

@@ -8,7 +8,7 @@ function Main() {
             bg="white"
             boxShadow='inner'
         >
-            Stuff
+            I'm Stuff
         </Flex>
     );
 }

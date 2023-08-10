@@ -36,13 +36,14 @@ function DesktopLayout({ handleMouseEnter, handleMouseLeave, isCollapsed, onColl
                 split="vertical"
                 sizes={sizes}
                 onChange={(newSizes: number[]) => setSizes(newSizes)}
-                resizerSize={4}
+                resizerSize={12}
                 allowResize={!isCollapsed}
                 sashRender={() => <div className="sash" />}
             >
                 <Pane
-                    minSize={100}     // Minimum size of the pane in px
-                    maxSize='50%'     // Maximum size of the pane in %
+                    //TODO(Alex) Sidebar can sill exceed minimum and maxmimum size when resizing the window and I can not figure out how to fix it
+                    minSize={200}     // Minimum size of the pane in px
+                    maxSize={300}     // Maximum size of the pane in px
                 >
                     <Sidebar    // Pass along the functions and props from App.js to this component
                         isMobile={false}

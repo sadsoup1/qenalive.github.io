@@ -10,7 +10,7 @@ function App() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   // Sizes is the current size of the 1 pane we have, hence 1 value in the right array. setSeizes is the function to update the sizes
-  const [sizes, setSizes] = useState([150]);
+  const [sizes, setSizes] = useState([200]);
 
   // Handles showing/hiding the button to collapse sidebar if hovering over sidebar
   const [isHoveringCollapse, setIsHoveringCollapse] = useState(false);
@@ -27,7 +27,7 @@ function App() {
       setIsHoveringCollapse(false)  // Hide the button since mobile should not have options to change size
       setIsHoveringExpand(false)    // Hide the button since mobile should not have options to change size
     } else {
-      setSizes([150])               // Default the sidebar size to 150 pixels
+      setSizes([200])               // Default the sidebar size in pixels
       setIsCollapsed(false)         // By default when switching the sidebar is able to be moved
       setIsHoveringCollapse(false)  // Hide the button to collapse the sidebar expanded
       setIsHoveringExpand(false)    // Hide this button because the sidebar since the mouse is probably not hovering over the sidebar
@@ -56,7 +56,7 @@ function App() {
   // After clicking to collapse the sidebar, 
   function onCollapseButtonClick() {
     setIsCollapsed(true);         // Set the sidebar to collapsed
-    setSizes([100]);              // Set the size of the sidebar to 100 pixels, the default arbitrary size
+    setSizes([100]);              // Set the size of the sidebar in pixels, the default arbitrary size
     setIsHoveringCollapse(false); // Hide the button to collapse since it was collapsed
     setIsHoveringExpand(false);   // Hide the button to expand since the mouse wouldnt be near it on a click of collapse
   }
@@ -64,7 +64,7 @@ function App() {
   // After clicking to expand the sidebar,
   function onExpandButtonClick() {
     setIsCollapsed(false);        // Set the sidebar to expanded
-    setSizes([150]);              // Default the sidebar to the opened size
+    setSizes([200]);              // Default the sidebar to the opened size
     setIsHoveringCollapse(true);  // Show the button to collapse since the mouse would be hovering in the area
     setIsHoveringExpand(false);   // Hide the button to expand since it was expanded
   }

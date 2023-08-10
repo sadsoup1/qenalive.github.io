@@ -30,12 +30,13 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
             h="100%"                        // Height of the sidebar takes up the entire pane size it fits in
             w="100%"                        // Width of the sidebar takes up the entire pane size it fits in
             bg="gray.50"                    // Background color of the sidebar
-            border='1px'                    // Border of the sidebar
+            borderRight='3px'                    // Border of the sidebar
             borderColor='gray.300'          // Border color of the sidebar
             onMouseEnter={handleMouseEnter as MouseEventHandler<HTMLDivElement>} // Function to call when the mouse enters the sidebar
             onMouseLeave={handleMouseLeave as MouseEventHandler<HTMLDivElement>} // Function to call when the mouse leaves the sidebar
             display='flex'                  // TBH i forget what i needed this for but I think it was crucial for the stack?  
         >
+
             {/* The buttons to collapse/expand the sidebar get hidden/disabled on mobile */}
             {isMobile ? null : (
                 <>
@@ -92,9 +93,10 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
             )}
 
             {/* The sidebar content */}
-            <Stack
+            <Flex
                 w='100%'    // Take up the entire width of the parent component
                 h='100%'    // Take up the entire height of the parent component
+                // spacing='0'
                 direction={isMobile ? 'row' : 'column'} // If mobile, the sidebar is horizontal, otherwise it's vertical
             >
                 {/* 
@@ -104,12 +106,12 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                 */}
                 <Flex
                     w={isMobile ? '20%' : '100%'}
-                    h={isMobile ? '100%' : '10%'}
+                    h={isMobile ? '100%' : '72px'}
                     bg='red.400'
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <Image src="/qena192.png" maxWidth="100%" maxHeight="100%" />
+                    <Image src="/qena192.png" maxWidth="90%" maxHeight="90%" />
                 </Flex>
 
                 {/* 
@@ -117,15 +119,16 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                     The widths change depending on the layout the page its in.
                     Numbers are arbitrary and can be changed.
                 */}
-                <Box w={isMobile ? '60%' : '100%'} h={isMobile ? '100%' : '20%'} bg='green.400'>
+                <Box w={isMobile ? '60%' : '100%'} h={isMobile ? '100%' : 'auto'} bg='green.400'>
                     {/* This vertical stack holds the two buttons for create and find rooms */}
                     <Stack
-                        w='100%'
-                        h='100%'
+                        // w='100%'
+                        // h='100%'
                         direction={isMobile ? 'row' : 'column'}
                         justifyContent="center"
                         alignItems={isCollapsed ? "center" : "left"}
-                        spacing="40%"
+                        padding='16px'
+                        spacing='12px'
                     >
                         <CreateRoomModal isCollapsed={isCollapsed} />
                         <FindRoomModal isCollapsed={isCollapsed} setJoinedRooms={setJoinedRooms} />
@@ -138,8 +141,9 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                         // Eventually will be a scrollable list of classes in this section
                         <Box
                             w={isMobile ? '100%' : '100%'}
-                            h={isMobile ? '100%' : '60%'}
+                            // h={isMobile ? '100%' : '60%'}
                             bg='blue.400'
+                            flex='1'
                         >
                             <RoomList joinedRooms={joinedRooms}/>
                         </Box>
@@ -148,7 +152,7 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                 {/* This box holds the account icon and drop down stuff for settings */}
                 <Flex
                     w={isMobile ? '20%' : '100%'}
-                    h={isMobile ? '100%' : '10%'}
+                    h={isMobile ? '100%' : '72px'}
                     bg='purple.400'
                     justifyContent="center"
                     alignItems="center"
@@ -156,7 +160,7 @@ function Sidebar({ isMobile, handleMouseEnter, handleMouseLeave, isCollapsed, on
                     <Avatar maxWidth="100%" maxHeight="100%" borderRadius="full" />
                 </Flex>
 
-            </Stack>
+            </Flex>
         </Flex>
     )
 }

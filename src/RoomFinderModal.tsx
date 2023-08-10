@@ -84,8 +84,8 @@ function FindRoomModal({ isCollapsed, setJoinedRooms }: RoomModal) {
 
     return (
         <>
-            <Button onClick={onOpen}>
-                <   Icon as={VscSearch} fontSize='2xl' ml={!isCollapsed ? 5 : 0} />
+            <Button justifyContent='flex-start' fontSize='md' onClick={onOpen}>
+                <Icon w='20px' marginLeft='0px' margin='6px' as={VscSearch} fontSize='2xl' ml={!isCollapsed ? 5 : 0} />
                 {!isCollapsed ? "Find room" : undefined}
             </Button>
 
